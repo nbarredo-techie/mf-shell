@@ -17,10 +17,9 @@ export default function Root() {
             </li>
           ))}
         </ul>
-      </aside>
-      <main className="flex-1 p-8 bg-slate-50">
+      </aside>      <main className="flex-1 p-8 bg-slate-50">
         {/* single-spa will mount microfrontend apps here */}
-        <div id="single-spa-application" />
+        <div id="single-spa-application:@mf/shell" />
       </main>
     </div>
   );

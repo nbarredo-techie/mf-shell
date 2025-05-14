@@ -1,11 +1,61 @@
-# React + TypeScript + Vite
+# MF Shell - Single-SPA Microfrontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a microfrontend shell application built with React, TypeScript, Vite, and single-spa.
 
-Currently, two official plugins are available:
+## Development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+# Install dependencies
+pnpm install
+
+# Start dev server
+pnpm dev
+```
+
+## Building for Production
+
+```bash
+pnpm build
+```
+
+## Integration with a Single-SPA Root Application
+
+To use this microfrontend in a single-spa root application, follow these steps:
+
+### 1. Add Import Map Entry
+
+In your root application, make sure to include this microfrontend in your import map:
+
+```json
+{
+  "imports": {
+    "@mf/shell": "https://your-deployment-url/mf-shell.js"
+  }
+}
+```
+
+For local development, use:
+```json
+{
+  "imports": {
+    "@mf/shell": "http://localhost:5173/mf-shell.js"
+  }
+}
+```
+
+### 2. Register the Application
+
+In your root application:
+
+```javascript
+import { registerApplication } from 'single-spa';
+
+registerApplication({
+  name: '@mf/shell',
+  app: () => System.import('@mf/shell'),
+  activeWhen: ['/'] // Modify this path as needed
+});
+```
 
 ## Expanding the ESLint configuration
 
