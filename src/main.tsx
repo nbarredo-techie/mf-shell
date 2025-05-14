@@ -1,6 +1,7 @@
 import './index.css';
 import { StrictMode } from 'react';
-import { createRoot, Root as ReactRoot } from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
+import type { Root as ReactRoot } from 'react-dom/client';
 import Root from './root.component';
 
 let rootInstance: ReactRoot | null = null;
