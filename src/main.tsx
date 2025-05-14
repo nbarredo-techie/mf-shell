@@ -2,6 +2,8 @@ import './index.css';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import type { Root as ReactRoot } from 'react-dom/client';
+import 'shared_ui/theme';
+
 import Root from './root.component';
 
 // Keep track of the root instance
