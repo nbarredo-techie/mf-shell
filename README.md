@@ -1,6 +1,6 @@
 # MF Shell - Single-SPA Microfrontend
 
-This is a microfrontend shell application built with React, TypeScript, Vite, and single-spa.
+This is a microfrontend shell application built with React, TypeScript, Vite, and single-spa. It uses import maps for module federation instead of webpack module federation.
 
 ## Development
 
@@ -20,25 +20,39 @@ pnpm build
 
 ## Integration with a Single-SPA Root Application
 
-To use this microfrontend in a single-spa root application, follow these steps:
+### 1. Set Up Import Maps
 
-### 1. Add Import Map Entry
+In your root HTML file, add import maps for proper module resolution:
 
-In your root application, make sure to include this microfrontend in your import map:
-
-```json
-{
-  "imports": {
-    "@mf/shell": "https://your-deployment-url/mf-shell.js"
+```html
+<script type="importmap">
+  {
+    "imports": {
+      "react": "https://cdn.jsdelivr.net/npm/react@19/umd/react.production.min.js",
+      "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@19/umd/react-dom.production.min.js",
+      "shared_ui/theme": "https://terrabostmanagestorage.blob.core.windows.net/$web/shared-ui/theme.js",
+      "shared_ui/components": "https://terrabostmanagestorage.blob.core.windows.net/$web/shared-ui/components.js",
+      "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@5.9.0/lib/system/single-spa.min.js",
+      "@mf/shell": "https://terrabostmanagestorage.blob.core.windows.net/$web/mf-shell/mf-shell.js"
+    }
   }
-}
+</script>
+
+<!-- For browsers that don't support import maps -->
+<script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/system.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/extras/amd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/extras/named-exports.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/extras/named-register.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/extras/use-default.min.js"></script>
 ```
 
 For local development, use:
 ```json
 {
   "imports": {
-    "@mf/shell": "http://localhost:5173/mf-shell.js"
+    "@mf/shell": "http://localhost:5173/mf-shell.js",
+    "shared_ui/theme": "http://localhost:5174/shared-ui/theme.js",
+    "shared_ui/components": "http://localhost:5174/shared-ui/components.js"
   }
 }
 ```
@@ -48,13 +62,22 @@ For local development, use:
 In your root application:
 
 ```javascript
-import { registerApplication } from 'single-spa';
+import { registerApplication, start } from 'single-spa';
 
 registerApplication({
   name: '@mf/shell',
   app: () => System.import('@mf/shell'),
   activeWhen: ['/'] // Modify this path as needed
 });
+
+start();
+```
+
+## Development Notes
+
+- During development, local stubs are used for shared_ui components and theme
+- In production, these are resolved via import maps at runtime
+- External dependencies are properly marked in vite.config.ts
 ```
 
 ## Expanding the ESLint configuration

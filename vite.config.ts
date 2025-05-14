@@ -3,7 +3,6 @@ import react from '@vitejs/plugin-react-swc';
 import singleSpa from 'vite-plugin-single-spa';
 import path from "path"
 import tailwindcss from "@tailwindcss/vite"
-import federation from '@originjs/vite-plugin-federation';
 
 
 export default defineConfig({
@@ -14,32 +13,12 @@ export default defineConfig({
       type: 'mife', 
       serverPort: 5173, 
       spaEntryPoints: './src/main.tsx'
-    }),
-    federation({
-      name: 'mf-shell',
-      
-      remotes: {
-        shared_ui: 'http://localhost:5174/assets/remoteEntry.js',
-      },
-      shared: {
-        react: { 
-          requiredVersion: '^19.0.0',
-          import: false
-        },
-        'react-dom': { 
-          requiredVersion: '^19.0.0',
-          import: false
-        }, 
-        'tailwindcss': {
-          requiredVersion: '^4.0.0',
-          import: false
-        }
-      }, 
     })
   ], 
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      
     },
   },
   server: {
@@ -54,8 +33,13 @@ export default defineConfig({
     modulePreload: false,
     minify: false,
     cssCodeSplit: false,
-    rollupOptions: {  
-       
+    rollupOptions: {
+      // Mark these imports as external so they're resolved at runtime via import maps
+      external: [
+        'shared_ui/components',
+        'shared_ui/theme',
+        /^shared_ui\/.*/
+      ],
       output: {
         format: 'system',
         entryFileNames: 'mf-shell.js',

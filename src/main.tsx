@@ -2,20 +2,27 @@ import './index.css';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import type { Root as ReactRoot } from 'react-dom/client';
-// src/main.tsx
-if (window.System) {
-  // Only works if SystemJS is loaded by vite-plugin-federation
-  window.System.import('shared_ui/theme');
-}
-
 import Root from './root.component';
+
+// Load shared UI theme if we're in production
+// In development, the theme is provided by the stub
 
 // Keep track of the root instance
 let rootInstance: ReactRoot | null = null;
 
 // Single-spa lifecycle functions
 export function bootstrap(): Promise<void> {
-  return Promise.resolve();
+  return Promise.resolve().then(async () => {
+    // If in production, attempt to load the shared UI theme
+    if (process.env.NODE_ENV === 'production') {
+      try {
+        // This assumes it will be available via import maps in production
+        await import('shared_ui/theme');
+      } catch (e) {
+        console.warn('Failed to load shared UI theme:', e);
+      }
+    }
+  });
 }
 
 export function mount(props: { domElement?: Element }): Promise<void> {
