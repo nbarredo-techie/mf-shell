@@ -35,8 +35,7 @@ export default defineConfig({
     cssCodeSplit: false,
     rollupOptions: {
       input: './src/main.tsx',
-      preserveEntrySignatures: 'strict',
-      // Mark these imports as external so they're resolved at runtime via import maps
+      preserveEntrySignatures: 'strict', 
       external: [
         'shared-ui',
         'shared-ui/components',
