@@ -18,7 +18,7 @@ export default defineConfig({
     federation({
       name: 'mf-shell',
       remotes: {
-        shared_ui: 'https://terrabostmanagestorage.blob.core.windows.net/$web/shared-ui/remoteEntry.js',
+        shared_ui: 'https://terrabostmanagestorage.blob.core.windows.net/$web/assets/shared-ui/remoteEntry.js',
       },
       shared: {
         react: { 
