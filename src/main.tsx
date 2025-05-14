@@ -17,7 +17,7 @@ export function bootstrap(): Promise<void> {
     if (process.env.NODE_ENV === 'production') {
       try {
         // This assumes it will be available via import maps in production
-        await import('shared_ui/theme');
+        await import('shared-ui/theme');
       } catch (e) {
         console.warn('Failed to load shared UI theme:', e);
       }
