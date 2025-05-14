@@ -36,6 +36,7 @@ export default defineConfig({
     rollupOptions: {
       // Mark these imports as external so they're resolved at runtime via import maps
       external: [
+        'shared-ui',
         'shared-ui/components',
         'shared-ui/theme',
         /^shared-ui\/.*/

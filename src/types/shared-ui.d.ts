@@ -8,6 +8,6 @@ declare module 'shared-ui' {
     variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
     size?: 'default' | 'sm' | 'lg' | 'icon';
     asChild?: boolean;
-    [key: string]: any;
+    [key: string]: unknown;
   }>;
 }
