@@ -1,8 +1,7 @@
 import './index.css';
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import type { Root as ReactRoot } from 'react-dom/client';
-import Root from './root.component';
+import React, { StrictMode } from 'react';
+import { createRoot, type Root as ReactRoot } from 'react-dom/client';
+import RootComponent from './root.component';
 
 let rootInstance: ReactRoot | null = null;
 
@@ -12,20 +11,19 @@ export function bootstrap(): Promise<void> {
 
 export function mount(props: { domElement?: Element }): Promise<void> {
   return Promise.resolve().then(() => {
-    const domElement =
+    const el =
       props.domElement ||
       document.getElementById('single-spa-application:@mf/shell') ||
       document.getElementById('root');
 
-    if (!domElement) {
-      console.error('[mf-shell] No DOM element found to mount app.');
-      return;
+    if (!el) {
+      throw new Error('[mf-shell] No element found for mounting.');
     }
 
-    rootInstance = createRoot(domElement);
+    rootInstance = createRoot(el);
     rootInstance.render(
       <StrictMode>
-        <Root />
+        <RootComponent />
       </StrictMode>
     );
   });
