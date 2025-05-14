@@ -8,7 +8,11 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    singleSpa({ type: 'mife', serverPort: 5173, spaEntryPoints: './src/root.component.tsx' }),
+    singleSpa({ 
+      type: 'mife', 
+      serverPort: 5173, 
+      spaEntryPoints: './src/main.tsx'  // Changed to main.tsx which has the single-spa lifecycle functions
+    }),
   ],
   resolve: {
     alias: {

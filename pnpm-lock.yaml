@@ -32,6 +32,9 @@ importers:
       react-router-dom:
         specifier: ^7.6.0
         version: 7.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      single-spa-react:
+        specifier: ^6.0.2
+        version: 6.0.2(@types/react-dom@19.1.4(@types/react@19.1.4))(@types/react@19.1.4)(react@19.1.0)
       tailwind-merge:
         specifier: ^3.3.0
         version: 3.3.0
@@ -738,6 +741,9 @@ packages:
   braces@3.0.3:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
     engines: {node: '>=8'}
+
+  browserslist-config-single-spa@1.0.1:
+    resolution: {integrity: sha512-nqOxTbatv6FcdgBvUTuH4MuojMZwvskspz5Y4dmpVcKd0uaQY8KEl3iALWus16+AwPVe3BIerBNEgELyaHZcQg==}
 
   bytes@3.1.2:
     resolution: {integrity: sha512-/Nf7TyzTx6S3yRJObOAV7956r8cr2+Oj8AC5dt8wSP3BQAoeX58NoHyCU8P8zGkNXStjTSi6fzO6F0pBdcYbEg==}
@@ -1460,6 +1466,18 @@ packages:
     resolution: {integrity: sha512-ZX99e6tRweoUXqR+VBrslhda51Nh5MTQwou5tnUDgbtyM0dBgmhEDtWGP/xbKn6hqfPRHujUNwz5fy/wbbhnpw==}
     engines: {node: '>= 0.4'}
 
+  single-spa-react@6.0.2:
+    resolution: {integrity: sha512-nRz5Izf57iYZXMXdTh+RmHnxxQojFL8NCIVUyA7PpXRib1ykmbat6JgT3yFPgXRs129BCC4+j+O5TLQOmLzF4Q==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: '*'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
@@ -2166,6 +2184,8 @@ snapshots:
   braces@3.0.3:
     dependencies:
       fill-range: 7.1.1
+
+  browserslist-config-single-spa@1.0.1: {}
 
   bytes@3.1.2: {}
 
@@ -2897,6 +2917,14 @@ snapshots:
       side-channel-list: 1.0.0
       side-channel-map: 1.0.1
       side-channel-weakmap: 1.0.2
+
+  single-spa-react@6.0.2(@types/react-dom@19.1.4(@types/react@19.1.4))(@types/react@19.1.4)(react@19.1.0):
+    dependencies:
+      browserslist-config-single-spa: 1.0.1
+      react: 19.1.0
+    optionalDependencies:
+      '@types/react': 19.1.4
+      '@types/react-dom': 19.1.4(@types/react@19.1.4)
 
   source-map-js@1.2.1: {}
 
