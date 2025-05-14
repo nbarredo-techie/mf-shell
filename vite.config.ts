@@ -39,8 +39,7 @@ export default defineConfig({
         /^shared-ui\/.*/,
       ],
       output: {
-        format: 'system',
-        entryFileNames: 'main.js',
+        format: 'system', 
         preserveModules: false, // important to avoid multiple chunks
       },
     },
