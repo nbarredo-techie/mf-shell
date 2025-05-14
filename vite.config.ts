@@ -13,12 +13,12 @@ export default defineConfig({
     singleSpa({ 
       type: 'mife', 
       serverPort: 5173, 
-      spaEntryPoints: './src/main.tsx'  // Changed to main.tsx which has the single-spa lifecycle functions
+      spaEntryPoints: './src/main.tsx'
     }),
     federation({
       name: 'mf-shell',
       remotes: {
-        shared_ui: 'https://terrabostmanagestorage.blob.core.windows.net/$web/shared-ui/remoteEntry.js', // Update URL to match your deployment
+        shared_ui: 'https://terrabostmanagestorage.blob.core.windows.net/$web/shared-ui/remoteEntry.js',
       },
       shared: {
         react: { 
@@ -32,7 +32,7 @@ export default defineConfig({
         'tailwindcss': {
           requiredVersion: '^4.0.0',
           import: false
-        } 
+        }
       }
     })
   ], 
@@ -54,6 +54,15 @@ export default defineConfig({
     minify: false,
     cssCodeSplit: false,
     rollupOptions: { 
+      // Add the problematic imports to external
+      external: [
+        'class-variance-authority',
+        // Add shared_ui imports here
+        'shared_ui',
+        'shared_ui/theme',
+        'shared_ui/components',
+        /^shared_ui\/.*/  // This will match any import starting with shared_ui/
+      ],
       output: {
         format: 'system',
         entryFileNames: 'mf-shell.js',
