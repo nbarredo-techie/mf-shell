@@ -17,8 +17,9 @@ export default defineConfig({
     }),
     federation({
       name: 'mf-shell',
+      
       remotes: {
-        shared_ui: 'https://terrabostmanagestorage.blob.core.windows.net/$web/assets/shared-ui/remoteEntry.js',
+        shared_ui: 'http://localhost:5174/assets/remoteEntry.js',
       },
       shared: {
         react: { 
@@ -33,7 +34,7 @@ export default defineConfig({
           requiredVersion: '^4.0.0',
           import: false
         }
-      }
+      }, 
     })
   ], 
   resolve: {
@@ -53,16 +54,8 @@ export default defineConfig({
     modulePreload: false,
     minify: false,
     cssCodeSplit: false,
-    rollupOptions: { 
-      // Add the problematic imports to external
-      external: [
-        'class-variance-authority',
-        // Add shared_ui imports here
-        'shared_ui',
-        'shared_ui/theme',
-        'shared_ui/components',
-        /^shared_ui\/.*/  // This will match any import starting with shared_ui/
-      ],
+    rollupOptions: {  
+       
       output: {
         format: 'system',
         entryFileNames: 'mf-shell.js',
