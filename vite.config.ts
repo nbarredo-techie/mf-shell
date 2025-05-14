@@ -33,6 +33,12 @@ export default defineConfig({
     modulePreload: false,
     minify: false,
     cssCodeSplit: false,
+    lib: {
+      entry: path.resolve(__dirname, 'src/main.tsx'),
+      name: 'mf-shell',
+      formats: ['system'],  
+      fileName: () => 'mf-shell.js',
+    },
     rollupOptions: {
       input: './src/main.tsx',
       preserveEntrySignatures: 'strict', 
