@@ -1,6 +1,6 @@
 // src/types/shared-ui.d.ts
 declare module 'shared_ui/theme';
-declare module 'shared_ui/components' {
+declare module 'shared-ui' {
   import React from 'react';
   
   export const Button: React.ComponentType<{

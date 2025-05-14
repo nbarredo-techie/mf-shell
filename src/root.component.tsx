@@ -1,5 +1,5 @@
 import { routes } from './routes'; 
-import { Button } from 'shared_ui/components';
+import { Button } from 'shared-ui';
 
 export default function Root() {
   return (
