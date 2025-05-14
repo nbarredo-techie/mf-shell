@@ -9,7 +9,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
     singleSpa({
-      type: 'mife',
+      type: 'mife', 
       serverPort: 5173,
       spaEntryPoints: './src/main.tsx',
     }),
@@ -40,7 +40,7 @@ export default defineConfig({
       ],
       output: {
         format: 'system',
-        entryFileNames: 'mf-shell.js',
+        entryFileNames: 'main.js',
         preserveModules: false, // important to avoid multiple chunks
       },
     },
