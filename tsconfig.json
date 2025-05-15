@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": ".", // Added baseUrl
+    "paths": {      // Added paths
+      "@/*": ["src/*"]
+    },
     "jsx": "react-jsx",            
     "jsxImportSource": "react",     
     "module": "ESNext",
@@ -8,6 +12,7 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true // Added to prevent .js file generation by tsc
   }
 }

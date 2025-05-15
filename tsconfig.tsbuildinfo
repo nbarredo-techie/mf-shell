@@ -1,1 +1,1 @@
-{"root":["./vite.config.ts","./src/app.tsx","./src/main.ts","./src/root.component.tsx","./src/routes.ts","./src/vite-env.d.ts","./src/components/ui/button.tsx","./src/lib/utils.ts","./src/types/shared-ui.d.ts","./src/types/system.d.ts"],"errors":true,"version":"5.8.3"}
+{"root":["./vite.config.ts","./src/app.tsx","./src/main.tsx","./src/mf-shell-config.ts","./src/root.component.tsx","./src/routes.ts","./src/vite-env.d.ts","./src/components/ui/button.tsx","./src/lib/utils.ts","./src/types/shared-ui.d.ts","./src/types/system.d.ts"],"version":"5.8.3"}
