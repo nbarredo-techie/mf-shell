@@ -11,6 +11,8 @@ export function bootstrap(): Promise<void> {
 
 export function mount(props: { domElement?: Element }): Promise<void> {
   return Promise.resolve().then(() => {
+    console.log("@mf/shell mounted", props);
+
     const el =
       props.domElement ||
       document.getElementById('single-spa-application:@mf/shell') ||
