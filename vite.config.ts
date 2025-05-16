@@ -1,12 +1,12 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
-import singleSpa from 'vite-plugin-single-spa';
+import vitePluginSingleSpa  from 'vite-plugin-single-spa';
 import path from 'path'; 
 
 export default defineConfig({
   plugins: [
     react(), 
-    singleSpa({
+    vitePluginSingleSpa({
       type: 'mife', 
       serverPort: 5173,
       spaEntryPoints: './src/main.tsx', 
