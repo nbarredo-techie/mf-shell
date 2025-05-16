@@ -9,7 +9,7 @@ export default defineConfig({
     singleSpa({
       type: 'mife', 
       serverPort: 5173,
-      spaEntryPoints: './src/main.tsx', // Changed .ts to .tsx
+      spaEntryPoints: './src/main.tsx', 
     }),
   ],
   resolve: {
