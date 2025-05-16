@@ -26,7 +26,7 @@ export default defineConfig({
   },
   build: {
     target: 'esnext',
-    cssCodeSplit: false,
+    cssCodeSplit: true,
     modulePreload: false,
     minify: false,
     rollupOptions: {
@@ -45,4 +45,3 @@ export default defineConfig({
     },
   },
 });
-  
