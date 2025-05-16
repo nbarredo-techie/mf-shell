@@ -31,6 +31,8 @@ export default defineConfig({
     minify: false,
     rollupOptions: {
       external: [
+        'react',
+        'react-dom',
         'shared-ui',
         'shared-ui/components',
         'shared-ui/theme',
