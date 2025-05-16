@@ -26,9 +26,6 @@ export default defineConfig({
   },
   build: {
     target: 'esnext',
-    cssCodeSplit: true,
-    modulePreload: false,
-    minify: false,
     rollupOptions: {
       external: [
         'react',
@@ -39,9 +36,10 @@ export default defineConfig({
         /^shared-ui\/.*/,
       ],
       output: {
-        format: 'system', 
+        format: 'es', 
         preserveModules: false, // important to avoid multiple chunks
       },
     },
+    cssCodeSplit: true, // Ensure this is at the build level
   },
 });
