@@ -13,7 +13,7 @@ importers:
         version: 1.4.1
       '@radix-ui/react-slot':
         specifier: ^1.2.2
-        version: 1.2.2(@types/react@19.1.4)(react@19.1.0)
+        version: 1.2.2(@types/react@19.1.4)(react@19.0.0)
       '@tailwindcss/vite':
         specifier: ^4.1.6
         version: 4.1.6(vite@6.3.5(@types/node@22.15.17)(jiti@2.4.2)(lightningcss@1.29.2))
@@ -25,19 +25,19 @@ importers:
         version: 2.1.1
       lucide-react:
         specifier: ^0.510.0
-        version: 0.510.0(react@19.1.0)
+        version: 0.510.0(react@19.0.0)
       react:
-        specifier: ^19.1.0
-        version: 19.1.0
+        specifier: 19.0.0
+        version: 19.0.0
       react-dom:
-        specifier: ^19.1.0
-        version: 19.1.0(react@19.1.0)
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
       react-router-dom:
         specifier: ^7.6.0
-        version: 7.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 7.6.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       single-spa-react:
         specifier: ^6.0.2
-        version: 6.0.2(@types/react-dom@19.1.4(@types/react@19.1.4))(@types/react@19.1.4)(react@19.1.0)
+        version: 6.0.2(@types/react-dom@19.1.4(@types/react@19.1.4))(@types/react@19.1.4)(react@19.0.0)
       tailwind-merge:
         specifier: 3.3.0
         version: 3.3.0
@@ -1382,10 +1382,10 @@ packages:
     resolution: {integrity: sha512-RmkhL8CAyCRPXCE28MMH0z2PNWQBNk2Q09ZdxM9IOOXwxwZbN+qbWaatPkdkWIKL2ZVDImrN/pK5HTRz2PcS4g==}
     engines: {node: '>= 0.8'}
 
-  react-dom@19.1.0:
-    resolution: {integrity: sha512-Xs1hdnE+DyKgeHJeJznQmYMIBG3TKIHJJT95Q58nHLSrElKlGQqDTR2HQ9fx5CN/Gk6Vh/kupBTDLU11/nDk/g==}
+  react-dom@19.0.0:
+    resolution: {integrity: sha512-4GV5sHFG0e/0AD4X+ySy6UJd3jVl1iNsNHdpad0qhABJ11twS3TTBnseqsKurKcsNqCEFeGL3uLpVChpIO3QfQ==}
     peerDependencies:
-      react: ^19.1.0
+      react: ^19.0.0
 
   react-router-dom@7.6.0:
     resolution: {integrity: sha512-DYgm6RDEuKdopSyGOWZGtDfSm7Aofb8CCzgkliTjtu/eDuB0gcsv6qdFhhi8HdtmA+KHkt5MfZ5K2PdzjugYsA==}
@@ -1404,8 +1404,8 @@ packages:
       react-dom:
         optional: true
 
-  react@19.1.0:
-    resolution: {integrity: sha512-FS+XFBNvn3GTAWq26joslQgWNoFu08F4kl0J4CgdNKADkdSGXQyTCnKteIAJy96Br6YbpEU1LSzV5dYtjMkMDg==}
+  react@19.0.0:
+    resolution: {integrity: sha512-V8AVnmPIICiWpGfm6GLzCR/W5FXLchHop40W4nXBmdlEceh16rCN8O8LNWm5bh5XUX91fh7KpA+W0TgMKmgTpQ==}
     engines: {node: '>=0.10.0'}
 
   resolve-from@4.0.0:
@@ -1434,8 +1434,8 @@ packages:
   safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  scheduler@0.26.0:
-    resolution: {integrity: sha512-NlHwttCI/l5gCPR3D1nNXtWABUmBwvZpEQiD4IXSbIDq8BzLIK/7Ir5gTFSGZDUu37K5cMNp0hFtzO38sC7gWA==}
+  scheduler@0.25.0:
+    resolution: {integrity: sha512-xFVuu11jh+xcO7JOAGJNOXld8/TcEHK/4CituBUeUb5hqxJLj9YuemAEuvm9gQ/+pgXYfbQuqAkiYu+u7YEsNA==}
 
   semver@7.7.2:
     resolution: {integrity: sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==}
@@ -1842,16 +1842,16 @@ snapshots:
       estree-walker: 3.0.3
       magic-string: 0.27.0
 
-  '@radix-ui/react-compose-refs@1.1.2(@types/react@19.1.4)(react@19.1.0)':
+  '@radix-ui/react-compose-refs@1.1.2(@types/react@19.1.4)(react@19.0.0)':
     dependencies:
-      react: 19.1.0
+      react: 19.0.0
     optionalDependencies:
       '@types/react': 19.1.4
 
-  '@radix-ui/react-slot@1.2.2(@types/react@19.1.4)(react@19.1.0)':
+  '@radix-ui/react-slot@1.2.2(@types/react@19.1.4)(react@19.0.0)':
     dependencies:
-      '@radix-ui/react-compose-refs': 1.1.2(@types/react@19.1.4)(react@19.1.0)
-      react: 19.1.0
+      '@radix-ui/react-compose-refs': 1.1.2(@types/react@19.1.4)(react@19.0.0)
+      react: 19.0.0
     optionalDependencies:
       '@types/react': 19.1.4
 
@@ -2675,9 +2675,9 @@ snapshots:
 
   lodash.merge@4.6.2: {}
 
-  lucide-react@0.510.0(react@19.1.0):
+  lucide-react@0.510.0(react@19.0.0):
     dependencies:
-      react: 19.1.0
+      react: 19.0.0
 
   magic-string@0.27.0:
     dependencies:
@@ -2809,26 +2809,26 @@ snapshots:
       iconv-lite: 0.6.3
       unpipe: 1.0.0
 
-  react-dom@19.1.0(react@19.1.0):
+  react-dom@19.0.0(react@19.0.0):
     dependencies:
-      react: 19.1.0
-      scheduler: 0.26.0
+      react: 19.0.0
+      scheduler: 0.25.0
 
-  react-router-dom@7.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  react-router-dom@7.6.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
-      react-router: 7.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+      react-router: 7.6.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
 
-  react-router@7.6.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  react-router@7.6.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       cookie: 1.0.2
-      react: 19.1.0
+      react: 19.0.0
       set-cookie-parser: 2.7.1
     optionalDependencies:
-      react-dom: 19.1.0(react@19.1.0)
+      react-dom: 19.0.0(react@19.0.0)
 
-  react@19.1.0: {}
+  react@19.0.0: {}
 
   resolve-from@4.0.0: {}
 
@@ -2878,7 +2878,7 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  scheduler@0.26.0: {}
+  scheduler@0.25.0: {}
 
   semver@7.7.2: {}
 
@@ -2945,10 +2945,10 @@ snapshots:
       side-channel-map: 1.0.1
       side-channel-weakmap: 1.0.2
 
-  single-spa-react@6.0.2(@types/react-dom@19.1.4(@types/react@19.1.4))(@types/react@19.1.4)(react@19.1.0):
+  single-spa-react@6.0.2(@types/react-dom@19.1.4(@types/react@19.1.4))(@types/react@19.1.4)(react@19.0.0):
     dependencies:
       browserslist-config-single-spa: 1.0.1
-      react: 19.1.0
+      react: 19.0.0
     optionalDependencies:
       '@types/react': 19.1.4
       '@types/react-dom': 19.1.4(@types/react@19.1.4)
