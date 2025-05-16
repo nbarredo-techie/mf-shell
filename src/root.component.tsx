@@ -1,4 +1,5 @@
-import { routes } from './routes'; 
+import { routes } from './routes';
+ import { Button } from 'shared-ui'; // Removed for test
 
 export default function Root() {
   return (
@@ -10,7 +11,9 @@ export default function Root() {
         <ul className="flex-1 space-y-2">
           {routes.map(route => (
             <li key={route.path}>
-              <a href={route.path}>{route.label}</a> 
+             <Button asChild variant="secondary" className="w-full justify-start text-slate-700">
+                <a href={route.path}>{route.label}</a>
+              </Button>
             </li>
           ))}
         </ul>
