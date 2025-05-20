@@ -15,6 +15,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      'shared-ui': path.resolve(__dirname, './src/stubs/shared-ui.js'),
     },
   },
   server: {
@@ -41,5 +42,19 @@ export default defineConfig({
       },
     },
     cssCodeSplit: true, // Ensure this is at the build level
+  },
+  optimizeDeps: {
+    exclude: [
+      'shared-ui',
+      'shared-ui/components',
+      'shared-ui/theme'
+    ],
+  },
+  ssr: {
+    external: [
+      'shared-ui',
+      'shared-ui/components',
+      'shared-ui/theme'
+    ],
   },
 });
