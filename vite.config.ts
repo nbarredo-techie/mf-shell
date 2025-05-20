@@ -10,6 +10,7 @@ export default defineConfig({
       type: 'mife', 
       serverPort: 5173,
       spaEntryPoints: './src/main.tsx', 
+      outputFilename: 'mf-shell.js', // Ensures dev and build entry is /mf-shell.js
     }),
   ],
   resolve: {
