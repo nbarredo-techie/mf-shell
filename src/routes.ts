@@ -1,5 +1,5 @@
 export const routes = [
-    { path: '/dashboard', label: 'Dashboard' },
+    { path: '/dashboard', label: 'Dashboard2' },
     { path: '/kiosks', label: 'Kiosks' },
     { path: '/venues', label: 'Venues' },
     { path: '/art', label: 'Art & Creative' },
