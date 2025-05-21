@@ -36,7 +36,8 @@ export default defineConfig({
         format: 'system', // Changed to SystemJS format
         name: '@mf/shell', // Added SystemJS module name
         entryFileNames: 'mf-shell.js', // Define the output filename
-        preserveModules: false, 
+        preserveModules: false,
+        exports: 'named', // Explicitly set how exports are handled
       },
     },
     cssCodeSplit: true, 
