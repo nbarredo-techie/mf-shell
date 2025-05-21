@@ -29,7 +29,8 @@ export default defineConfig({
         'react',
         'react-dom',
         'single-spa', // Add single-spa to externals
-       
+        'shared-ui', // Added back shared-ui
+        /^shared-ui\/.*/, // Added back shared-ui regex
       ],
       output: {
         format: 'system', // Changed to SystemJS format
