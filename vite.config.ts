@@ -40,6 +40,7 @@ export default defineConfig({
       },
     },
     cssCodeSplit: true, 
+    minify: false
   },
    
 });
