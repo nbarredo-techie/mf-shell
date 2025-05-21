@@ -9,7 +9,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      'shared-ui': path.resolve(__dirname, 'src/stubs/shared-ui.js'), // Restore alias for 'shared-ui'
+      // 'shared-ui': path.resolve(__dirname, 'src/stubs/shared-ui.js'), // Comment out or remove this line
     },
   },
   server: {
@@ -32,7 +32,7 @@ export default defineConfig({
         /^@mf\/.*/, // Corrected regex
       ],
       output: {
-        format: 'system', // Ensure ESM output for build
+        format: 'amd', // Ensure ESM output for build
         name: '@mf/shell',
         entryFileNames: 'mf-shell.js',
         preserveModules: false,
