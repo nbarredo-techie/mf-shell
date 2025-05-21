@@ -1,4 +1,4 @@
-name: Deploy shared-ui to Azure Blob Static Website (in /mf-shell)
+name: Deploy mf-shell to Azure Blob Static Website (in /mf-shell)
 
 on:
   push:
