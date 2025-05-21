@@ -28,14 +28,15 @@ export default defineConfig({
         'react',
         'react-dom',
         'single-spa',
-        /^@mf\/.*/,
+        'shared-ui', // Add shared-ui as an external
+        /^@mf\/.*/, // Corrected regex
       ],
       output: {
-        format: 'system', // Ensure ESM output for build
+        format: 'system', // Ensure SystemJS output for build
         name: '@mf/shell',
         entryFileNames: 'mf-shell.js',
         preserveModules: false,
-        exports: 'auto',
+        exports: 'named', // Change from 'auto' to 'named'
       },
     },
     cssCodeSplit: true, 
