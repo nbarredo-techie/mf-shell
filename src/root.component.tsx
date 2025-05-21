@@ -12,7 +12,7 @@ export default function Root() {
         <ul className="flex-1 space-y-2">
           {routes.map(route => (
             <li key={route.path}>
-              <Button asChild variant="secondary" className="w-full justify-start text-slate-700">
+              <Button   variant="secondary" className="w-full justify-start text-slate-700">
                 <a href={route.path}>{route.label}</a>
               </Button>
             </li>
