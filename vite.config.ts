@@ -1,17 +1,10 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react-swc';
-import vitePluginSingleSpa  from 'vite-plugin-single-spa';
+import react from '@vitejs/plugin-react';
 import path from 'path'; 
 
 export default defineConfig({
   plugins: [
-    react(), 
-    vitePluginSingleSpa({
-      type: 'mife', 
-      serverPort: 5173,
-      spaEntryPoints: './src/main.tsx', 
-      outputFilename: 'mf-shell.js', // Ensures dev and build entry is /mf-shell.js
-    }),
+    react(),
   ],
   resolve: {
     alias: {
@@ -29,20 +22,24 @@ export default defineConfig({
   build: {
     target: 'esnext',
     rollupOptions: {
+      input: 'src/main.tsx', // Specify the entry point
       external: [
         'react',
         'react-dom',
+        'single-spa', // Add single-spa to externals
         'shared-ui',
         'shared-ui/components',
         'shared-ui/theme',
-        /^shared-ui\/.*/,
+        /^shared-ui\/.*/, // Corrected regex
       ],
       output: {
-        format: 'es', 
-        preserveModules: false, // important to avoid multiple chunks
+        format: 'system', // Output SystemJS format
+        entryFileNames: 'mf-shell.js', // Define the output filename
+        name: '@mf/shell', // Define the SystemJS module name
+        preserveModules: false, 
       },
     },
-    cssCodeSplit: true, // Ensure this is at the build level
+    cssCodeSplit: true, 
   },
   optimizeDeps: {
     exclude: [

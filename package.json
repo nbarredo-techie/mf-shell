@@ -9,20 +9,18 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
-  "dependencies": {
-    "@originjs/vite-plugin-federation": "^1.4.1",
+  "dependencies": { 
     "@radix-ui/react-slot": "^1.2.2",
     "@tailwindcss/vite": "^4.1.6",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
     "lucide-react": "^0.510.0",
-    "react": "18.3.1",
+    "react": "18.3.1",  
     "react-dom": "18.3.1",
     "react-router-dom": "^7.6.0",
     "single-spa-react": "^6.0.2",
     "tailwind-merge": "3.3.0",
-    "tailwindcss": "^4.1.6",
-    "vite-plugin-single-spa": "^1.0.0"
+    "tailwindcss": "^4.1.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
@@ -30,7 +28,7 @@
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@types/react-router-dom": "^5.3.3",
-    "@vitejs/plugin-react-swc": "^3.9.0",
+    "@vitejs/plugin-react": "^4.3.1",
     "eslint": "^9.25.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
