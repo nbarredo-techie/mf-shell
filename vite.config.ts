@@ -24,7 +24,7 @@ export default defineConfig({
     target: 'esnext',
     rollupOptions: {
       input: 'src/main.tsx', // Specify the entry point
-      preserveEntrySignatures: 'exports-only',
+      preserveEntrySignatures: 'strict', // Changed from 'exports-only'
       external: [
         'react',
         'react-dom',
