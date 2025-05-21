@@ -33,11 +33,11 @@ export default defineConfig({
         /^shared-ui\/.*/, // Added back shared-ui regex
       ],
       output: {
-        format: 'system', // Changed to SystemJS format
+        format: 'amd', // Changed to SystemJS format
         name: '@mf/shell', // Added SystemJS module name
         entryFileNames: 'mf-shell.js', // Define the output filename
         preserveModules: false,
-        exports: 'named', // Explicitly set how exports are handled
+        exports: 'auto', // Explicitly set how exports are handled
       },
     },
     cssCodeSplit: true, 
