@@ -1,16 +1,15 @@
 import { defineConfig } from 'vite';
-// import react from '@vitejs/plugin-react'; // Removed
-import react from '@vitejs/plugin-react'; // Added back
+import react from '@vitejs/plugin-react';
 import path from 'path'; 
 
 export default defineConfig({
   plugins: [
-    react(), // Assuming this is intended to be @vitejs/plugin-react
+    react(),
   ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      
+      'shared-ui': path.resolve(__dirname, 'src/stubs/shared-ui.js'), // Restore alias for 'shared-ui'
     },
   },
   server: {
@@ -23,21 +22,20 @@ export default defineConfig({
   build: {
     target: 'esnext',
     rollupOptions: {
-      input: 'src/main.tsx', // Specify the entry point
-      preserveEntrySignatures: 'strict', // Changed from 'exports-only'
+      input: 'src/main.tsx',
+      preserveEntrySignatures: 'strict',
       external: [
         'react',
         'react-dom',
-        'single-spa', // Add single-spa to externals
-        'shared-ui', // Added back shared-ui
-        /^shared-ui\/.*/, // Added back shared-ui regex
+        'single-spa',
+        /^@mf\/.*/,
       ],
       output: {
-        format: 'amd', // Changed to SystemJS format
-        name: '@mf/shell', // Added SystemJS module name
-        entryFileNames: 'mf-shell.js', // Define the output filename
+        format: 'system', // Ensure ESM output for build
+        name: '@mf/shell',
+        entryFileNames: 'mf-shell.js',
         preserveModules: false,
-        exports: 'auto', // Explicitly set how exports are handled
+        exports: 'auto',
       },
     },
     cssCodeSplit: true, 
