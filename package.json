@@ -47,8 +47,8 @@
     "webpack-config-single-spa-react-ts": "^8.0.0"
   },
   "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
     "single-spa-react": "^6.0.2",
     "@types/jest": "^27.0.1",
     "@types/systemjs": "^6.1.1",
