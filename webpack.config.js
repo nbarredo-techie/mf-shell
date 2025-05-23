@@ -21,6 +21,16 @@ module.exports = (webpackConfigEnv, argv) => {
     outputSystemJS: false, // Recommended to be false for Module Federation
   });
 
+  // Override the library name to match what root-config expects ('@mf/shell')
+  // When outputSystemJS is false, singleSpaDefaults sets output.libraryTarget to 'umd'
+  // and output.library to a string like 'orgName-projectName'.
+  if (defaultConfig.output) {
+    defaultConfig.output.library = '@mf/shell';
+  } else {
+    // This case should ideally not be hit if singleSpaDefaults functions correctly
+    defaultConfig.output = { library: '@mf/shell' };
+  }
+
   return merge(defaultConfig, {
     // modify the webpack config however you'd like to by adding to this object
     externals: ['shared-ui'], // react, react-dom, react-dom/client are now federated
