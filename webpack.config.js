@@ -22,6 +22,7 @@ module.exports = (webpackConfigEnv, argv) => {
     // modify the webpack config however you'd like to by adding to this object
     externals: ['shared-ui'], // react and react-dom will be federated
     devServer: {
+      ...defaultConfig.devServer,  // Spread existing devServer config from singleSpaDefaults
       hot: true, // Ensure HMR is enabled for webpack-dev-server
       port: 8080, // Set fixed port to 8080
     },
@@ -30,10 +31,9 @@ module.exports = (webpackConfigEnv, argv) => {
         name: "mf_shell",
         filename: "remoteEntry.js",
         remotes: {
-          root_config: "root_config@http://localhost:3000/remoteEntry.js",
+          root_config: "root_config@https://white-pond-0db5ebd10.6.azurestaticapps.net/remoteEntry.js",
         },
-        shared: {
-          ...defaultConfig.externals,
+        shared: { 
           react: {
             singleton: true,
             requiredVersion: false,
@@ -45,10 +45,7 @@ module.exports = (webpackConfigEnv, argv) => {
           "react-dom/client": {
             singleton: true,
             requiredVersion: false,
-          },
-          "shared-ui": {
-            singleton: true,
-          }
+          } 
         },
       }),
     ],
