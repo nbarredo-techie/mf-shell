@@ -1,8 +1,5 @@
 const { merge } = require("webpack-merge");
 const singleSpaDefaults = require("webpack-config-single-spa-react-ts");
-const webpack = require('webpack'); // Import webpack
-// Assuming mf-shell also has a package.json for its own dependencies
-// const deps = require('./package.json').dependencies;
 
 module.exports = (webpackConfigEnv, argv) => {
   const isLocal = webpackConfigEnv && (webpackConfigEnv.isLocal || webpackConfigEnv.isDev);
@@ -21,52 +18,27 @@ module.exports = (webpackConfigEnv, argv) => {
     outputSystemJS: false, // Recommended to be false for Module Federation
   });
 
-  // Override the library name to match what root-config expects ('@mf/shell')
-  // When outputSystemJS is false, singleSpaDefaults sets output.libraryTarget to 'umd'
-  // and output.library to a string like 'orgName-projectName'.
-  if (defaultConfig.output) {
-    defaultConfig.output.library = '@mf/shell';
-  } else {
-    // This case should ideally not be hit if singleSpaDefaults functions correctly
-    defaultConfig.output = { library: '@mf/shell' };
-  }
-
   return merge(defaultConfig, {
     // modify the webpack config however you'd like to by adding to this object
-    externals: ['shared-ui'], // react, react-dom, react-dom/client are now federated
+    externals: ['shared-ui', 'react', 'react-dom', 'react-dom/client'], // Reverted externals
     devServer: {
       ...defaultConfig.devServer,
       hot: true,
       port: 8080,
     },
-    plugins: [
-      new webpack.container.ModuleFederationPlugin({
-        name: "mf_shell",
-        filename: "remoteEntry.js",
-        remotes: {
-          // Conditional remote URL
-          root_config: "root_config@https://white-pond-0db5ebd10.6.azurestaticapps.net/remoteEntry.js",
-        },
-        exposes: {
-          // If mf-shell exposes any modules, define them here
-        },
-        shared: { 
-          react: {
-            singleton: true,
-            // requiredVersion: deps.react, // Ideally, specify version from mf-shell's package.json
-            requiredVersion: false, // Or keep false if strictly relying on root_config's version
+    module: {
+      rules: [
+        {
+          test: /\.jsx?$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env', '@babel/preset-react'],
+            },
           },
-          "react-dom": {
-            singleton: true,
-            // requiredVersion: deps["react-dom"],
-            requiredVersion: false,
-          },
-          "react-dom/client": {
-            singleton: true, 
-            requiredVersion: false,
-          }, 
         },
-      }),
-    ],
+      ],
+    },
   });
 };
