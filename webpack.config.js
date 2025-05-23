@@ -22,6 +22,7 @@ module.exports = (webpackConfigEnv, argv) => {
     externals: ['shared-ui', 'react', 'react-dom'], // Added react and react-dom
     devServer: {
       hot: true, // Ensure HMR is enabled for webpack-dev-server
+      port: 8080, // Set fixed port to 8080
     },
   });
 };
