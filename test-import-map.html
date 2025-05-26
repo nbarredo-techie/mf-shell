@@ -47,14 +47,15 @@
         <div id="mf-shell-container">
             <p>Micro-frontend will load here...</p>
         </div>
-    </div>
-
-    <!-- Import Map Configuration -->
+    </div>    <!-- Import Map Configuration -->
     <script type="importmap">
     {
       "imports": {
         "react": "https://esm.sh/react@19.0.0",
-        "react-dom": "https://esm.sh/react-dom@19.0.0", 
+        "react-dom": "https://esm.sh/react-dom@19.0.0",
+        "react/jsx-runtime": "https://esm.sh/react@19.0.0/jsx-runtime",
+        "react/jsx-dev-runtime": "https://esm.sh/react@19.0.0/jsx-dev-runtime",
+        "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
         "shared-ui": "./mock-shared-ui.js",
         "@mf/shell": "./dist/terraboost-mf-shell.js"
       }

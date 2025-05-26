@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Micro-frontend Shell Test - Complete Setup</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+        }
+        .debug-info {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            max-width: 300px;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="debug-info" class="debug-info">
+        <div id="react-status">React Status: Loading...</div>
+        <div id="bundle-status">Bundle Status: Loading...</div>
+        <div id="render-status">Render Status: Waiting...</div>
+    </div>
+
+    <div id="single-spa-application:@mf/shell"></div>    <!-- Import Map - Match package.json versions -->
+    <script type="importmap">
+    {
+        "imports": {
+            "react": "https://esm.sh/react@19.0.0",
+            "react-dom": "https://esm.sh/react-dom@19.0.0",
+            "react/jsx-runtime": "https://esm.sh/react@19.0.0/jsx-runtime",
+            "react/jsx-dev-runtime": "https://esm.sh/react@19.0.0/jsx-dev-runtime",
+            "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
+            "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@5.9.3/+esm",
+            "shared-ui": "./mock-shared-ui.js"
+        }
+    }
+    </script>
+
+    <script type="module">
+        // Debug logging
+        function updateStatus(elementId, message, isError = false) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.className = isError ? 'error' : 'success';
+        }
+
+        // Test React loading
+        try {
+            const React = await import('react');
+            const ReactDOM = await import('react-dom/client');
+            updateStatus('react-status', `React ${React.version} loaded successfully`);
+            
+            // Test if React is the same instance
+            window.React = React;
+            window.ReactDOM = ReactDOM;
+            
+        } catch (error) {
+            updateStatus('react-status', `React loading failed: ${error.message}`, true);
+        }
+
+        // Load and mount the micro-frontend
+        try {
+            updateStatus('bundle-status', 'Loading micro-frontend bundle...');
+            
+            const microfrontend = await import('./dist/terraboost-mf-shell.js');
+            updateStatus('bundle-status', 'Bundle loaded successfully');
+            
+            // Single-spa lifecycle
+            const mockProps = {
+                name: '@mf/shell',
+                singleSpa: await import('single-spa'),
+                mountParcel: () => {},
+                customProps: {}
+            };
+
+            updateStatus('render-status', 'Bootstrapping...');
+            await microfrontend.bootstrap(mockProps);
+            
+            updateStatus('render-status', 'Mounting...');
+            await microfrontend.mount(mockProps);
+            
+            updateStatus('render-status', 'Mounted successfully!');
+            
+        } catch (error) {
+            updateStatus('bundle-status', `Bundle loading failed: ${error.message}`, true);
+            updateStatus('render-status', `Render failed: ${error.message}`, true);
+            console.error('Full error:', error);
+        }
+
+        // Monitor network requests to detect React duplicates
+        const originalFetch = window.fetch;
+        const loadedReactFiles = new Set();
+        
+        window.fetch = async function(...args) {
+            const url = args[0];
+            if (typeof url === 'string' && url.includes('react')) {
+                loadedReactFiles.add(url);
+                console.log('React-related request:', url);
+                console.log('All React requests so far:', Array.from(loadedReactFiles));
+            }
+            return originalFetch.apply(this, args);
+        };
+    </script>
+</body>
+</html>
