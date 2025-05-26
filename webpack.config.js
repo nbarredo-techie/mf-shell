@@ -11,11 +11,29 @@ module.exports = (webpackConfigEnv, argv) => {
   });
 
   return merge(defaultConfig, {
-    // Explicitly define externals, especially if outputSystemJS is false
+    // Define externals for UMD format (when outputSystemJS: false)
     externals: {
-      "react": "react",
-      "react-dom": "react-dom", 
-      "shared-ui": "shared-ui",
+      "react": {
+        root: "React",
+        commonjs2: "react",
+        commonjs: "react",
+        amd: "react",
+        umd: "react"
+      },
+      "react-dom": {
+        root: "ReactDOM",
+        commonjs2: "react-dom",
+        commonjs: "react-dom",
+        amd: "react-dom",
+        umd: "react-dom"
+      },
+      "shared-ui": {
+        root: "SharedUI",
+        commonjs2: "shared-ui",
+        commonjs: "shared-ui",
+        amd: "shared-ui",
+        umd: "shared-ui"
+      }
     },
   });
 };
