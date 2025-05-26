@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terraboost MF Shell Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        #mf-shell-container {
+            margin: 20px 0;
+            border: 2px dashed #ccc;
+            padding: 20px;
+            min-height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Terraboost Micro-Frontend Shell Test</h1>
+        <p>This page tests the micro-frontend shell with external React dependencies.</p>
+        
+        <div id="status-container">
+            <div class="status" id="react-status">🔄 Checking React availability...</div>
+            <div class="status" id="reactdom-status">🔄 Checking ReactDOM availability...</div>
+            <div class="status" id="mf-status">🔄 Loading micro-frontend...</div>
+        </div>
+
+        <div id="mf-shell-container">
+            <p>Micro-frontend will load here...</p>
+        </div>
+    </div>    <!-- Load React and ReactDOM from CDN -->
+    <script crossorigin src="https://unpkg.com/react@19.0.0/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@19.0.0/umd/react-dom.development.js"></script>
+
+    <script>
+        // Check if React and ReactDOM are available
+        function updateStatus(elementId, success, message) {
+            const element = document.getElementById(elementId);
+            element.className = `status ${success ? 'success' : 'error'}`;
+            element.textContent = `${success ? '✅' : '❌'} ${message}`;
+        }
+
+        // Test React availability
+        if (typeof React !== 'undefined') {
+            updateStatus('react-status', true, `React is available (version: ${React.version})`);
+        } else {
+            updateStatus('react-status', false, 'React is not available');
+        }
+
+        // Test ReactDOM availability
+        if (typeof ReactDOM !== 'undefined') {
+            updateStatus('reactdom-status', true, 'ReactDOM is available');
+        } else {
+            updateStatus('reactdom-status', false, 'ReactDOM is not available');
+        }
+
+        // Load the micro-frontend
+        if (typeof React !== 'undefined' && typeof ReactDOM !== 'undefined') {
+            const script = document.createElement('script');
+            script.src = './dist/terraboost-mf-shell.js';
+            script.onload = function() {
+                try {
+                    // Check if the micro-frontend is available
+                    if (typeof window['terraboost-mf-shell'] !== 'undefined') {
+                        updateStatus('mf-status', true, 'Micro-frontend loaded successfully');
+                        
+                        // Try to mount the micro-frontend
+                        const container = document.getElementById('mf-shell-container');
+                        container.innerHTML = '<div id="terraboost-mf-shell-root"></div>';
+                        
+                        // Mount the micro-frontend (this might vary based on the actual implementation)
+                        // This is a basic attempt - the actual mounting might be different
+                        if (window['terraboost-mf-shell'] && window['terraboost-mf-shell'].mount) {
+                            window['terraboost-mf-shell'].mount('#terraboost-mf-shell-root');
+                        }
+                    } else {
+                        updateStatus('mf-status', false, 'Micro-frontend object not found on window');
+                    }
+                } catch (error) {
+                    updateStatus('mf-status', false, `Error loading micro-frontend: ${error.message}`);
+                    console.error('Micro-frontend error:', error);
+                }
+            };
+            script.onerror = function() {
+                updateStatus('mf-status', false, 'Failed to load micro-frontend script');
+            };
+            document.head.appendChild(script);
+        } else {
+            updateStatus('mf-status', false, 'Cannot load micro-frontend - React dependencies missing');
+        }
+    </script>
+</body>
+</html>
