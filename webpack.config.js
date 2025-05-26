@@ -13,7 +13,7 @@ module.exports = (webpackConfigEnv, argv) => {
   return merge(defaultConfig, {
     // Explicitly define externals, especially if outputSystemJS is false
     externals: {
-      "react": "react",
+      react: "react",
       "react-dom": "react-dom", 
       "shared-ui": "shared-ui",
     },
