@@ -9,6 +9,7 @@ module.exports = (webpackConfigEnv, argv) => {
     argv,
     outputSystemJS: false,
   });
+  
   return merge(defaultConfig, {
     experiments: {
       outputModule: true,
@@ -20,14 +21,18 @@ module.exports = (webpackConfigEnv, argv) => {
       environment: {
         module: true,
       },
-    },    // Configure externals for ES modules with import maps
-    externals: {
-      "react": "react",
-      "react-dom": "react-dom", 
-      "react/jsx-runtime": "react/jsx-runtime",
-      "react/jsx-dev-runtime": "react/jsx-dev-runtime",
-      "react-dom/client": "react-dom/client",
-      "shared-ui": "shared-ui"
-    }
+    },
+    // Merge externals with single-spa defaults instead of overriding
+    externals: [
+      ...Array.isArray(defaultConfig.externals) ? defaultConfig.externals : [defaultConfig.externals],
+      {
+        "react": "react",
+        "react-dom": "react-dom", 
+        "react/jsx-runtime": "react/jsx-runtime",
+        "react/jsx-dev-runtime": "react/jsx-dev-runtime",
+        "react-dom/client": "react-dom/client",
+        "shared-ui": "shared-ui"
+      }
+    ].filter(Boolean)
   });
 };

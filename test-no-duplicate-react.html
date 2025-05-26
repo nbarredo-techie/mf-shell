@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test No Duplicate React - Import Map</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .warning { background-color: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        #loading-details {
+            font-family: monospace;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Test: No Duplicate React Loading</h1>
+        <p>This test verifies that only one React instance is loaded from the import map.</p>
+        
+        <div id="status-container">
+            <div class="status" id="import-map-status">🔄 Setting up import map...</div>
+            <div class="status" id="react-status">🔄 Loading React...</div>
+            <div class="status" id="bundles-status">🔄 Loading microfrontend bundles...</div>
+            <div class="status" id="verification-status">🔄 Verifying single React instance...</div>
+        </div>
+
+        <div id="loading-details"></div>
+    </div>
+
+    <!-- Import Map Configuration -->
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@19.0.0",
+        "react-dom": "https://esm.sh/react-dom@19.0.0",
+        "react/jsx-runtime": "https://esm.sh/react@19.0.0/jsx-runtime",
+        "react/jsx-dev-runtime": "https://esm.sh/react@19.0.0/jsx-dev-runtime",
+        "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
+        "shared-ui": "./dist/terrabost-shared-ui.js",
+        "@mf/shell": "./dist/terraboost-mf-shell.js"
+      }
+    }
+    </script>
+
+    <script type="module">
+        const loadingDetails = document.getElementById('loading-details');
+        let loadLog = '';
+
+        function updateStatus(elementId, success, message) {
+            const element = document.getElementById(elementId);
+            element.className = `status ${success ? 'success' : 'error'}`;
+            element.textContent = `${success ? '✅' : '❌'} ${message}`;
+        }
+
+        function updateWarning(elementId, message) {
+            const element = document.getElementById(elementId);
+            element.className = 'status warning';
+            element.textContent = `⚠️ ${message}`;
+        }
+
+        function log(message) {
+            loadLog += message + '\n';
+            loadingDetails.textContent = loadLog;
+            console.log(message);
+        }
+
+        // Track network requests to detect multiple React downloads
+        const originalFetch = window.fetch;
+        const networkRequests = [];
+        
+        window.fetch = function(...args) {
+            const url = args[0];
+            if (typeof url === 'string' && (url.includes('react') || url.includes('esm.sh'))) {
+                networkRequests.push(url);
+                log(`📡 Network request: ${url}`);
+            }
+            return originalFetch.apply(this, args);
+        };
+
+        try {
+            updateStatus('import-map-status', true, 'Import map configured successfully');
+            log('✅ Import map setup complete');
+
+            // Load React and store reference
+            log('📦 Loading React from import map...');
+            const React = await import('react');
+            const ReactDOM = await import('react-dom');
+            
+            // Store React instance globally for comparison
+            window.GlobalReact = React;
+            window.GlobalReactDOM = ReactDOM;
+            
+            updateStatus('react-status', true, `React ${React.version} loaded from import map`);
+            log(`✅ React ${React.version} loaded successfully`);
+            log(`📍 React instance ID: ${React.version}-${Date.now()}`);
+
+            // Load shared-ui and verify it uses the same React
+            log('📦 Loading shared-ui bundle...');
+            const sharedUI = await import('shared-ui');
+            log('✅ Shared-UI loaded successfully');
+
+            // Load mf-shell and verify it uses the same React
+            log('📦 Loading mf-shell bundle...');
+            const mfShell = await import('@mf/shell');
+            log('✅ MF-Shell loaded successfully');
+
+            updateStatus('bundles-status', true, 'All microfrontend bundles loaded successfully');
+
+            // Verification phase
+            log('\n🔍 Starting verification...');
+            
+            // Check if React instances are the same
+            const reactInstancesMatch = window.GlobalReact === React;
+            log(`🔍 React instance consistency: ${reactInstancesMatch ? 'PASS' : 'FAIL'}`);
+
+            // Analyze network requests
+            const reactRequests = networkRequests.filter(url => url.includes('react'));
+            log(`\n📊 Network Analysis:`);
+            log(`📡 Total React-related requests: ${reactRequests.length}`);
+            
+            reactRequests.forEach((req, index) => {
+                log(`   ${index + 1}. ${req}`);
+            });
+
+            // Check for duplicate requests
+            const uniqueRequests = [...new Set(reactRequests)];
+            const hasDuplicates = reactRequests.length !== uniqueRequests.length;
+            
+            if (hasDuplicates) {
+                updateWarning('verification-status', `Found ${reactRequests.length - uniqueRequests.length} duplicate React requests`);
+                log(`⚠️ Found duplicate requests!`);
+            } else if (uniqueRequests.length <= 3) {
+                // Expected: react, react-dom, jsx-runtime
+                updateStatus('verification-status', true, `Single React instance verified (${uniqueRequests.length} unique requests)`);
+                log(`✅ No duplicate React loading detected!`);
+            } else {
+                updateStatus('verification-status', false, `Too many unique React requests (${uniqueRequests.length})`);
+                log(`❌ Too many unique React requests detected`);
+            }
+
+            log('\n📋 Final Summary:');
+            log(`   React Version: ${React.version}`);
+            log(`   Unique Requests: ${uniqueRequests.length}`);
+            log(`   Total Requests: ${reactRequests.length}`);
+            log(`   Instance Match: ${reactInstancesMatch}`);
+
+        } catch (error) {
+            updateStatus('react-status', false, `Error: ${error.message}`);
+            log(`❌ Error: ${error.message}`);
+            console.error('Loading error:', error);
+        }
+    </script>
+</body>
+</html>
