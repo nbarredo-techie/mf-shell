@@ -14,8 +14,7 @@ module.exports = (webpackConfigEnv, argv) => {
     // Explicitly define externals, especially if outputSystemJS is false
     externals: {
       "react": "react",
-      "react-dom": "react-dom",
-      "react-dom/client": "react-dom/client",
+      "react-dom": "react-dom", 
       "shared-ui": "shared-ui",
     },
   });
