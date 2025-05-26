@@ -107,9 +107,8 @@
         "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@19.0.0/+esm",
         "react/jsx-runtime": "https://cdn.jsdelivr.net/npm/react@19.0.0/jsx-runtime.js/+esm",
         "react/jsx-dev-runtime": "https://cdn.jsdelivr.net/npm/react@19.0.0/jsx-dev-runtime.js/+esm",
-        "react-dom/client": "https://cdn.jsdelivr.net/npm/react-dom@19.0.0/client.js/+esm",
-        "shared-ui": "./dist/terrabost-shared-ui.js",
-        "@mf/shell": "./dist/terraboost-mf-shell.js"
+        "react-dom/client": "https://cdn.jsdelivr.net/npm/react-dom@19.0.0/client.js/+esm",        "shared-ui": "../dist/terrabost-shared-ui.js",
+        "@mf/shell": "../dist/terraboost-mf-shell.js"
       }
     }
     </script>
@@ -170,10 +169,9 @@
                     <div class="metric"><span>JSX Runtime:</span><span>✅ Loaded</span></div>
                 `);
                 score += 30;
-                
-                // Test microfrontend bundles
-                const sharedUI = await import('./dist/terrabost-shared-ui.js');
-                const mfShell = await import('./dist/terraboost-mf-shell.js');
+                  // Test microfrontend bundles
+                const sharedUI = await import('../dist/terrabost-shared-ui.js');
+                const mfShell = await import('../dist/terraboost-mf-shell.js');
                 
                 updateCard('externals-status', 'success', `
                     <div class="metric"><span>React:</span><span>✅ v${React.version}</span></div>
