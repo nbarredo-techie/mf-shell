@@ -36,15 +36,15 @@
         <div id="render-status">Render Status: Waiting...</div>
     </div>
 
-    <div id="single-spa-application:@mf/shell"></div>    <!-- Import Map - Match package.json versions -->
+    <div id="single-spa-application:@mf/shell"></div>    <!-- Import Map - Using jsDelivr for consistent React loading -->
     <script type="importmap">
     {
         "imports": {
-            "react": "https://esm.sh/react@19.0.0",
-            "react-dom": "https://esm.sh/react-dom@19.0.0",
-            "react/jsx-runtime": "https://esm.sh/react@19.0.0/jsx-runtime",
-            "react/jsx-dev-runtime": "https://esm.sh/react@19.0.0/jsx-dev-runtime",
-            "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
+            "react": "https://cdn.jsdelivr.net/npm/react@19.0.0/+esm",
+            "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@19.0.0/+esm",
+            "react/jsx-runtime": "https://cdn.jsdelivr.net/npm/react@19.0.0/jsx-runtime.js/+esm",
+            "react/jsx-dev-runtime": "https://cdn.jsdelivr.net/npm/react@19.0.0/jsx-dev-runtime.js/+esm",
+            "react-dom/client": "https://cdn.jsdelivr.net/npm/react-dom@19.0.0/client.js/+esm",
             "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@5.9.3/+esm",
             "shared-ui": "./mock-shared-ui.js"
         }
