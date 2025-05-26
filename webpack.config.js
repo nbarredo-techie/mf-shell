@@ -15,7 +15,8 @@ module.exports = (webpackConfigEnv, argv) => {
     externals: {
       "react": "react",
       "react-dom": "react-dom",
-      "shared-ui": "shared-ui"
+      "react-dom/client": "react-dom/client",
+      "shared-ui": "shared-ui",
     },
   });
 };
