@@ -107,7 +107,7 @@
         "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@19.0.0/+esm",
         "react/jsx-runtime": "https://cdn.jsdelivr.net/npm/react@19.0.0/jsx-runtime.js/+esm",
         "react/jsx-dev-runtime": "https://cdn.jsdelivr.net/npm/react@19.0.0/jsx-dev-runtime.js/+esm",
-        "react-dom/client": "https://cdn.jsdelivr.net/npm/react-dom@19.0.0/client.js/+esm",        "shared-ui": "../dist/terrabost-shared-ui.js",
+        "react-dom/client": "https://cdn.jsdelivr.net/npm/react-dom@19.0.0/client.js/+esm",        "shared-ui": "../dist/terraboost-shared-ui.js",
         "@mf/shell": "../dist/terraboost-mf-shell.js"
       }
     }
@@ -170,7 +170,7 @@
                 `);
                 score += 30;
                   // Test microfrontend bundles
-                const sharedUI = await import('../dist/terrabost-shared-ui.js');
+                const sharedUI = await import('../dist/terraboost-shared-ui.js');
                 const mfShell = await import('../dist/terraboost-mf-shell.js');
                 
                 updateCard('externals-status', 'success', `
