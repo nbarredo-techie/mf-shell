@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terraboost MF Shell Test with Import Map</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        #mf-shell-container {
+            margin: 20px 0;
+            border: 2px dashed #ccc;
+            padding: 20px;
+            min-height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Terraboost Micro-Frontend Shell Test with Import Map</h1>
+        <p>This page tests the micro-frontend shell using import maps for dependency resolution.</p>
+        
+        <div id="status-container">
+            <div class="status" id="import-map-status">🔄 Setting up import map...</div>
+            <div class="status" id="mf-status">🔄 Loading micro-frontend...</div>
+        </div>
+
+        <div id="mf-shell-container">
+            <p>Micro-frontend will load here...</p>
+        </div>
+    </div>
+
+    <!-- Import Map Configuration -->
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@19.0.0",
+        "react-dom": "https://esm.sh/react-dom@19.0.0", 
+        "shared-ui": "./mock-shared-ui.js",
+        "@mf/shell": "./dist/terraboost-mf-shell.js"
+      }
+    }
+    </script>
+
+    <script type="module">
+        function updateStatus(elementId, success, message) {
+            const element = document.getElementById(elementId);
+            element.className = `status ${success ? 'success' : 'error'}`;
+            element.textContent = `${success ? '✅' : '❌'} ${message}`;
+        }
+
+        updateStatus('import-map-status', true, 'Import map configured successfully');
+
+        try {
+            // Test importing React from the import map
+            const React = await import('react');
+            const ReactDOM = await import('react-dom');
+            
+            console.log('React loaded:', React.version);
+            console.log('ReactDOM loaded:', ReactDOM);
+
+            // Import the micro-frontend module
+            const mfShell = await import('@mf/shell');
+            console.log('Micro-frontend loaded:', mfShell);
+
+            updateStatus('mf-status', true, 'Micro-frontend ES module loaded successfully via import map');
+
+            // The micro-frontend should now be available for single-spa to mount
+            console.log('Available lifecycle methods:', Object.keys(mfShell));
+
+        } catch (error) {
+            updateStatus('mf-status', false, `Error loading micro-frontend: ${error.message}`);
+            console.error('Import error:', error);
+        }
+    </script>
+</body>
+</html>
