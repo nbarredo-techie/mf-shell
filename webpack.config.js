@@ -9,15 +9,25 @@ module.exports = (webpackConfigEnv, argv) => {
     argv,
     outputSystemJS: false,
   });
-
   return merge(defaultConfig, {
-    // Override the default externals configuration
-    externals: {
-      "react": "React",
-      "react-dom": "ReactDOM",
-      "react/jsx-runtime": "React",
-      "react-dom/client": "ReactDOM",
-      "shared-ui": "SharedUI"
+    experiments: {
+      outputModule: true,
     },
+    output: {
+      library: {
+        type: "module",
+      },
+      environment: {
+        module: true,
+      },
+    },
+    // Configure externals for ES modules with import maps
+    externals: {
+      "react": "react",
+      "react-dom": "react-dom", 
+      "react/jsx-runtime": "react",
+      "react-dom/client": "react-dom",
+      "shared-ui": "shared-ui"
+    }
   });
 };
