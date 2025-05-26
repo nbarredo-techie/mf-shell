@@ -37,3 +37,8 @@ declare module "*.svg" {
   const src: string;
   export default src;
 }
+
+declare module "shared-ui" {
+  export const Button: React.ComponentType<React.PropsWithChildren<any>>;
+  // Add other shared-ui exports as needed
+}
