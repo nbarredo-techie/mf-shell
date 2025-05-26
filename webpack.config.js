@@ -21,18 +21,12 @@ module.exports = (webpackConfigEnv, argv) => {
       environment: {
         module: true,
       },
-    },
-    // Merge externals with single-spa defaults instead of overriding
+    },    // Use single-spa defaults and add JSX runtime + shared-ui externals
     externals: [
-      ...Array.isArray(defaultConfig.externals) ? defaultConfig.externals : [defaultConfig.externals],
-      {
-        "react": "react",
-        "react-dom": "react-dom", 
-        "react/jsx-runtime": "react/jsx-runtime",
-        "react/jsx-dev-runtime": "react/jsx-dev-runtime",
-        "react-dom/client": "react-dom/client",
-        "shared-ui": "shared-ui"
-      }
-    ].filter(Boolean)
+      ...defaultConfig.externals,
+      "react/jsx-runtime",
+      "react/jsx-dev-runtime",
+      "shared-ui"
+    ],
   });
 };
