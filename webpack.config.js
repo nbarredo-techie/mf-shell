@@ -20,13 +20,13 @@ module.exports = (webpackConfigEnv, argv) => {
       environment: {
         module: true,
       },
-    },
-    // Configure externals for ES modules with import maps
+    },    // Configure externals for ES modules with import maps
     externals: {
       "react": "react",
       "react-dom": "react-dom", 
-      "react/jsx-runtime": "react",
-      "react-dom/client": "react-dom",
+      "react/jsx-runtime": "react/jsx-runtime",
+      "react/jsx-dev-runtime": "react/jsx-dev-runtime",
+      "react-dom/client": "react-dom/client",
       "shared-ui": "shared-ui"
     }
   });
