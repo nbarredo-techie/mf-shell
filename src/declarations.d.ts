@@ -43,5 +43,7 @@ declare module "shared-ui" {
   export const AppSidebar: React.ComponentType<React.PropsWithChildren<any>>;
 
   export const SidebarProvider: React.ComponentType<React.PropsWithChildren<any>>;
+  export const ThemeProvider: React.ComponentType<React.PropsWithChildren<any>>;
+  export const ThemeToggle: React.ComponentType<React.PropsWithChildren<any>>;
   // Add other shared-ui exports as needed
 }

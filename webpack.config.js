@@ -9,8 +9,7 @@ module.exports = (webpackConfigEnv, argv) => {
     argv,
     outputSystemJS: false,
   });
-  
-  return merge(defaultConfig, {
+    return merge(defaultConfig, {
     experiments: {
       outputModule: true,
     },
@@ -21,7 +20,11 @@ module.exports = (webpackConfigEnv, argv) => {
       environment: {
         module: true,
       },
-    },    // Use single-spa defaults and add JSX runtime + shared-ui externals
+    },
+    devServer: {
+      port: 8080,
+    },
+    // Use single-spa defaults and add JSX runtime + shared-ui externals
     externals: [
       ...defaultConfig.externals,
       "react/jsx-runtime",
