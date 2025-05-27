@@ -14,12 +14,7 @@ export default function Root() {
               <ThemeToggle />
             </div>
           </div>
-        </header>
-        
-        <main className="container mx-auto py-6">
-          <h1 className="text-2xl font-bold">My Application</h1>
-           
-        </main>
+        </header> 
       </div>
     </ThemeProvider>
     <SidebarProvider>
