@@ -29,7 +29,7 @@ module.exports = (webpackConfigEnv, argv) => {
       ...defaultConfig.externals,
       "react/jsx-runtime",
       "react/jsx-dev-runtime",
-      "shared-ui"
+      "@shared-ui"
     ],
   });
 };
