@@ -14,6 +14,9 @@ export default function Root() {
       <SidebarProvider>
         <AppSidebar items={routes} />
       </SidebarProvider>
+      <div id="theme-toggle" className="fixed top-5 right-5">
+        <ThemeToggle />
+      </div>
     </ThemeProvider>
   );
 }
